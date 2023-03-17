@@ -1,5 +1,6 @@
+import Login from './components/shared/Login';
 function App() {
-	return <div className='bg-zinc-600 text-center'>Lista de Usuarios</div>;
+	return <Login />;
 }
 
 export default App;
