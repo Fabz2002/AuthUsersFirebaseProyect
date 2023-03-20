@@ -1,5 +1,17 @@
-import { Link } from 'react-router-dom';
-function MainPage({ email }) {
+import { useAuth } from '../../context/AuthContext';
+
+export function Home() {
+	const { logout, user } = useAuth();
+
+	console.log(user);
+	const handleLogout = async () => {
+		try {
+			await logout();
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
 	return (
 		<main
 			className=" h-screen bg-center bg-cover bg-[url('../../../public/img/registerUser.jpg')]
@@ -8,13 +20,16 @@ function MainPage({ email }) {
 			<div className='flex flex-col justify-center items-center'>
 				<section className='container flex flex-col pb-3 border-b-2 border-x-zinc-800'>
 					<h5>
-						Bienvenido ,<b>{email}</b> Haz iniciado sesion
+						Bienvenido ,<b>{user.displayName || user.email}</b> Haz iniciado
+						sesion
 					</h5>
-					<Link to='../'>
-						<button className='w-28 bg-blue-600  text-white mt-4 mx-1 p-2 rounded-md text-sm'>
-							Cerrar Sesion
-						</button>
-					</Link>
+
+					<button
+						className='w-28 bg-blue-600  text-white mt-4 mx-1 p-2 rounded-md text-sm'
+						onClick={handleLogout}
+					>
+						Cerrar Sesion
+					</button>
 				</section>
 				<section className=' flex flex-col sm:grid grid-cols-6 container gap-4 pl-4 pr-4'>
 					<div className='sm:col-span-2'>
@@ -61,5 +76,3 @@ function MainPage({ email }) {
 		</main>
 	);
 }
-
-export default MainPage;
